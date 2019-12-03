@@ -21,7 +21,15 @@ namespace CustomerPortal.Models
 
         public Customer getCustomer(int id)
         {
-            return this.dbContext.Customers.FirstOrDefault(e => e.CustomerID == id);
+            var cust = this.dbContext.Customers.FirstOrDefault(e => e.CustomerID == id);
+            return cust;
+        }
+
+        public Customer searchCustomer(string str)
+        {
+            str = str.ToLower();
+            var cust = this.dbContext.Customers.FirstOrDefault(e => e.FirstName.ToLower().Equals(str) || e.LastName.ToLower().Equals(str));
+            return cust;
         }
 
         public void addCustomer(Customer customer)
@@ -43,17 +51,46 @@ namespace CustomerPortal.Models
             this.dbContext.SaveChanges();
         }
 
-        public void editCustomer(Customer customer)
+        public int editCustomer(Customer customer)
         {
-            this.dbContext.Customers.Update(customer);
-            this.dbContext.SaveChanges();
+            if (customer != null)
+            {
+                Customer cust = this.dbContext.Customers.Find(customer.CustomerID);
+                if (cust != null)
+                {
+                    this.dbContext.Customers.Update(customer);
+                    this.dbContext.SaveChanges();
+                    return 1;
+                } else
+                {
+                    return -1;
+                }
+            } else
+            {
+                return -1;
+            }
         }
 
-        public void deleteCustomer(int id)
+        public int deleteCustomer(int id)
         {
-            var cust = this.dbContext.Customers.FirstOrDefault(e => e.CustomerID == id);
-            this.dbContext.Customers.Remove(cust);
-            this.dbContext.SaveChanges();
+            var customerCount = this.dbContext.Customers.Count();
+            if (customerCount == 0)
+            {
+                return -1;
+            }
+            else
+            {
+                var cust = this.dbContext.Customers.FirstOrDefault(e => e.CustomerID == id);
+                if (cust != null)
+                {
+                    this.dbContext.Customers.Remove(cust);
+                    this.dbContext.SaveChanges();
+                    return 1;
+                } else
+                {
+                    return -1;
+                }
+            }          
         }
     }
 }

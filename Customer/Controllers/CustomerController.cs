@@ -39,7 +39,14 @@ namespace CustomerPortal.Controllers
             try
             {
                 var customer = custDataLayer.getCustomer(id);
-                return Ok(customer);
+                if (customer != null)
+                {
+                    return Ok(customer);
+                }
+                else
+                {
+                    return NotFound("Customer was not found");
+                }
             }
             catch (Exception ex)
             {
@@ -63,13 +70,19 @@ namespace CustomerPortal.Controllers
         }
 
         // PUT api/customer/5
-        [HttpPut("{id}")]
+        [HttpPut]
         public IActionResult Put([FromBody] Customer customer)
         {
             try
             {
-                custDataLayer.editCustomer(customer);
-                return Created("Get", customer);
+                int ret = custDataLayer.editCustomer(customer);
+                if (ret != -1)
+                {
+                    return Created("Get", customer);
+                } else
+                {
+                    return NotFound("Customer was not found");
+                }
             }
             catch (Exception ex)
             {
@@ -83,8 +96,37 @@ namespace CustomerPortal.Controllers
         {
             try
             {
-                custDataLayer.deleteCustomer(id);
-                return Ok(this.dbContext.Customers.ToList());
+                int ret = custDataLayer.deleteCustomer(id);
+                if (ret != 1)
+                {
+                    return NotFound("Customer id: " + id + " was not found");
+                }
+                else
+                {
+                    return Ok(this.dbContext.Customers.ToList());
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("Search/{str}")]
+        public IActionResult Search(string str)
+        {
+            try
+            {
+                var customer = custDataLayer.searchCustomer(str);
+                if (customer != null)
+                {
+                    return Ok(customer);
+                }
+                else
+                {
+                    return NotFound("Customer with firstname or lastname as " + str + " was not found");
+                }
             }
             catch (Exception ex)
             {
