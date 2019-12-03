@@ -22,54 +22,74 @@ namespace CustomerPortal.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var customers = custDataLayer.getCustomers();
-            return Ok(customers);
+            try
+            {
+                var customers = custDataLayer.getCustomers();
+                return Ok(customers);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            return Ok(this.dbContext.Customers.FirstOrDefault(e => e.CustomerID == id));
+            try
+            {
+                var customer = custDataLayer.getCustomer(id);
+                return Ok(customer);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         // POST api/customer
         [HttpPost]
-        public IActionResult Post([FromBody]Customer product)
+        public IActionResult Post([FromBody]Customer customer)
         {
-            if (product.CustomerID == 0)
+            try
             {
-                var customerCount = this.dbContext.Customers.Count();
-                if (customerCount == 0)
-                {
-                    product.CustomerID = 1;
-                } else
-                {
-                    var custId = this.dbContext.Customers.Max(e => e.CustomerID);
-                    product.CustomerID = custId + 1;
-                }
+                custDataLayer.addCustomer(customer);
+                return Created("Get", customer);
             }
-            this.dbContext.Customers.Add(product);
-            this.dbContext.SaveChanges();
-            return Created("Get", product);
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         // PUT api/customer/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Customer product)
+        public IActionResult Put([FromBody] Customer customer)
         {
-            this.dbContext.Customers.Update(product);
-            this.dbContext.SaveChanges();
-            return Created("Get", product);
+            try
+            {
+                custDataLayer.editCustomer(customer);
+                return Created("Get", customer);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         // DELETE api/customer/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var cust = this.dbContext.Customers.FirstOrDefault(e => e.CustomerID == id);
-            this.dbContext.Customers.Remove(cust);
-            this.dbContext.SaveChanges();
-            return Ok(this.dbContext.Customers.ToList());
+            try
+            {
+                custDataLayer.deleteCustomer(id);
+                return Ok(this.dbContext.Customers.ToList());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }
