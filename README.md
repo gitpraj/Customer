@@ -19,6 +19,7 @@ This APP uses In Memory Database.
 
 * Simple App to showcase my tech skills and my adaptability to any skill.
 * You can only add, update, delete and search for customers via the API.
+* AsNoTracking used for concurrency problems with In memory Store dbContext.
 * Basic validation when accessing data.
 * HTTP return codes are returned along with actual data in JSON format.
 * 2 Tier Architecture - Business/API Layer and Data Access Layer
