@@ -49,6 +49,11 @@ I have created a few unit tests which are found in the folder CustomerControlTes
 
 These tests will talk with the In memory store.
 
+Go to Folder CustomerControlTests/ and run
+```
+dotnet test
+```
+
 
 ### Deisgn Architrecture
 
