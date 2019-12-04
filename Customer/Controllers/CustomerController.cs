@@ -74,7 +74,7 @@ namespace CustomerPortal.Controllers
             }
         }
 
-        // PUT api/customer/5
+        // PUT api/customer/
         [HttpPut]
         public IActionResult Put([FromBody] Customer customer)
         {
@@ -117,6 +117,7 @@ namespace CustomerPortal.Controllers
             }
         }
 
+        // PUT api/customer/Search/{abc}
         [HttpGet]
         [Route("Search/{str}")]
         public IActionResult Search(string str)

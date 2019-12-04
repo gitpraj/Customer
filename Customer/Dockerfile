@@ -8,16 +8,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2-nanoserver-1803 AS build
 WORKDIR /src
-COPY ["Customer/Customer.csproj", "Customer/"]
-RUN dotnet restore "Customer/Customer.csproj"
+COPY ["CustomerPortal.csproj", "Customer/"]
+RUN dotnet restore "Customer/CustomerPortal.csproj"
 COPY . .
 WORKDIR "/src/Customer"
-RUN dotnet build "Customer.csproj" -c Release -o /app
+RUN dotnet build "CustomerPortal.csproj" -c Release -o /app
 
 FROM build AS publish
-RUN dotnet publish "Customer.csproj" -c Release -o /app
+RUN dotnet publish "CustomerPortal.csproj" -c Release -o /app
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "Customer.dll"]
+ENTRYPOINT ["dotnet", "CustomerPortal.dll"]

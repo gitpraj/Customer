@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace CustomerPortal.Models
 {
+    /* Data Layer for the Customer Portal */
     public class CustomerDataLayer
     {
         private MyDbContext dbContext;
@@ -15,17 +16,21 @@ namespace CustomerPortal.Models
             this.dbContext = dbContext;
         }
 
+        /* getCustomers() - get all customers from the db */
         public List<Customer> getCustomers()
         {
             return this.dbContext.Customers.ToList();
         }
 
+        /* getCustomer() - get a customer with the help of the customerId from the db */
         public Customer getCustomer(int id)
         {
             var cust = this.dbContext.Customers.AsNoTracking().FirstOrDefault(e => e.CustomerID == id);
             return cust;
         }
 
+        /* searchCustomer() - partial search for customer, 
+         * matches the specified string against firstName or LastName. */
         public Customer searchCustomer(string str)
         {
             str = str.ToLower();
@@ -33,6 +38,8 @@ namespace CustomerPortal.Models
             return cust;
         }
 
+        /* addCustomer() - add a new customer. CustomerId integer to be greater than
+         * zero. If the request contains customerId as 0, set it to 1 + the max customerId from the db  */
         public int addCustomer(Customer customer)
         {
             if (customer.CustomerID == 0)
@@ -67,6 +74,7 @@ namespace CustomerPortal.Models
             }
         }
 
+        /* editCustomer() - customer data updated */
         public int editCustomer(Customer customer)
         {
             if (customer != null)
@@ -87,6 +95,7 @@ namespace CustomerPortal.Models
             }
         }
 
+        /* deleteCustomer() - delete customers from the db */
         public int deleteCustomer(int id)
         {
             var customerCount = this.dbContext.Customers.Count();
