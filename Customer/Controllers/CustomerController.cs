@@ -11,11 +11,9 @@ namespace CustomerPortal.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private MyDbContext dbContext;
         private CustomerDataLayer custDataLayer;
         public CustomerController(MyDbContext dbContext)
         {
-            this.dbContext = dbContext;
             custDataLayer = new CustomerDataLayer(dbContext);
         }
 
@@ -60,8 +58,15 @@ namespace CustomerPortal.Controllers
         {
             try
             {
-                custDataLayer.addCustomer(customer);
-                return Created("Get", customer);
+                int ret = custDataLayer.addCustomer(customer);
+                if (ret != -1)
+                {
+                    return Created("Get", customer);
+                }
+                else
+                {
+                    return NotFound("Customer was already present");
+                }
             }
             catch (Exception ex)
             {
@@ -103,7 +108,7 @@ namespace CustomerPortal.Controllers
                 }
                 else
                 {
-                    return Ok(this.dbContext.Customers.ToList());
+                    return Ok(custDataLayer.getCustomers());
                 }
             }
             catch (Exception ex)

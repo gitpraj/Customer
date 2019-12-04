@@ -1,4 +1,5 @@
 ﻿using CustomerPortal.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace CustomerPortal.Models
 
         public Customer getCustomer(int id)
         {
-            var cust = this.dbContext.Customers.FirstOrDefault(e => e.CustomerID == id);
+            var cust = this.dbContext.Customers.AsNoTracking().FirstOrDefault(e => e.CustomerID == id);
             return cust;
         }
 
@@ -32,7 +33,7 @@ namespace CustomerPortal.Models
             return cust;
         }
 
-        public void addCustomer(Customer customer)
+        public int addCustomer(Customer customer)
         {
             if (customer.CustomerID == 0)
             {
@@ -46,17 +47,32 @@ namespace CustomerPortal.Models
                     var custId = this.dbContext.Customers.Max(e => e.CustomerID);
                     customer.CustomerID = custId + 1;
                 }
+
+                this.dbContext.Customers.Add(customer);
+                this.dbContext.SaveChanges();
+                return 1;
+            } else
+            {
+                Customer cust = this.dbContext.Customers.Find(customer.CustomerID);
+                if (cust == null)
+                {
+                    this.dbContext.Customers.Add(customer);
+                    this.dbContext.SaveChanges();
+                    return 1;
+                }
+                else
+                {
+                    return -1;
+                }
             }
-            this.dbContext.Customers.Add(customer);
-            this.dbContext.SaveChanges();
         }
 
         public int editCustomer(Customer customer)
         {
             if (customer != null)
             {
-                Customer cust = this.dbContext.Customers.Find(customer.CustomerID);
-                if (cust != null)
+                int cust = this.dbContext.Customers.AsNoTracking().Count(x => x.CustomerID == customer.CustomerID);
+                if (cust > 0)
                 {
                     this.dbContext.Customers.Update(customer);
                     this.dbContext.SaveChanges();
