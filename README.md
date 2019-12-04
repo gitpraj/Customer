@@ -36,9 +36,9 @@ This APP uses In Memory Database.
 
 ## Running the tests
 
-I have created a few unit tests which are found in the folder CustomerControlTests. This could be run manually. Tests include the interface testing i.e. test the controllers. 
+I have created a few unit tests which are found in the folder CustomerControlTests. This could be run manually. Tests include the interface testing i.e. test the data layer. 
 
-These tests will talk with the In memory database.
+These tests will talk with the In memory store.
 
 
 ### Deisgn Architrecture
