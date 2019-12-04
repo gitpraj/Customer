@@ -96,5 +96,32 @@ namespace CustomerControlTests
                 Assert.Equal(response, ret);
             }
         }
+
+        [InlineData("abc")]
+        [InlineData("def")]
+        [InlineData("praj")]
+        [InlineData("lop")]
+        [Theory]
+        public void TestSearchCustomer(string str)
+        {
+            //var cdl = new CustomerDataLayer((MyDbContext)dbContext);
+            using (var context = new MyDbContext(dbContext))
+            {
+                var service = new CustomerDataLayer(context);
+
+                Customer temp = service.searchCustomer(str);
+                Customer ret = null;
+                if (temp != null)
+                {
+                    ret = service.getCustomer(temp.CustomerID);
+                }
+                else
+                {
+                    ret = null;
+                }
+
+                Assert.Equal(temp, ret);
+            }
+        }
     }
 }
