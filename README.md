@@ -8,7 +8,7 @@ Run the app on visual studio or dotnet console.
 Go to folder Customer/bin/Debug/netcoreapp2.2 
 and run 
 ```
-dotnet CustomerPortal.dl
+dotnet CustomerPortal.dll
 ```
 Check out Swagger UI for all the api's involved
 URL: http://localhost:5000/swagger
