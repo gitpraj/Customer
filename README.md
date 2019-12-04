@@ -5,10 +5,10 @@ This API was built for a coding challenge. Customer Portal API - Adding, Updatin
 ## Getting Started
 
 Run the app on visual studio or dotnet console.
-Go to folder Customer/bin/Debug/netcoreapp2.2 
+Go to folder Customer/ 
 and run 
 ```
-dotnet CustomerPortal.dll
+dotnet run .
 ```
 Check out Swagger UI for all the api's involved
 URL: http://localhost:5000/swagger
