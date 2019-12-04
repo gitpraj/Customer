@@ -47,9 +47,9 @@ These tests will talk with the In memory store.
 
 ### Deisgn TEchnique
 
-* Agile - split tasks into mini srints and then release them then and there
+* Agile - split tasks into mini sprints
 * TDD
-* Continous Integration with the help of GitHub actions
+* Continous Integration with the help of GitHub actions.
 
 ## Built With
 
