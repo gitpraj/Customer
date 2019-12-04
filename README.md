@@ -13,14 +13,26 @@ This APP uses In Memory Database.
 
 ### Assumptions
 
+* Simple App to showcase my tech skills and my adaptability to any skill.
+* You can only add, update, delete and search for customers via the API.
+* Basic validation when accessing data.
+* HTTP return codes are returned along with actual data in JSON format.
+* 2 Tier Architecture - Business/API Layer and Data Access Layer
+* In Memory EF Store and swagger injected to the app via Dependency Injection principle.
+* SOLID principles followed as much as possible.
+* Sufficient Unit Tests
 
 ### Improvements
 
+* UI could be created
+* Use SQL or NoSQL for data storage.
+* Authentication/Authorization for the APIs
+* Can be hosted on AWS API Gateway or Azure API Management
 
 ### Prerequisites
 
 * .NET Core 2.2 to be installed
-* Docker to be installed - windows
+* Docker to be installed - windows if you want the app to run in containers
 
 ## Running the tests
 
