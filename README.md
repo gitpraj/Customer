@@ -5,6 +5,7 @@ This API was built for a coding challenge. Customer Portal API - Adding, Updatin
 ## Getting Started
 
 Run the app on visual studio or dotnet console.
+Go to folder Customer/bin/Debug/netcoreapp2.2 and run '''dotnet CustomerPortal.dll'''
 
 Check out Swagger UI for all the api's involved
 URL: http://localhost:5000/swagger
@@ -33,6 +34,11 @@ This APP uses In Memory Database.
 
 * .NET Core 2.2 to be installed
 * Docker to be installed - windows if you want the app to run in containers
+
+### Container
+
+* Build: Go to the Customer Folder and run '''docker build -t <username>/<repo_name> .'''
+* Run: docker run -d <username>/<repo_name>
 
 ## Running the tests
 
