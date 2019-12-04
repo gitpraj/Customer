@@ -16,5 +16,5 @@ jobs:
     - name: Build with dotnet
       run: dotnet build --configuration Release
     - name: Test
-      run: dotnet test ../../CustomerControlTests/CustomerControlTests.csproj
+      run: dotnet test CustomerControlTests/CustomerControlTests.csproj
       
