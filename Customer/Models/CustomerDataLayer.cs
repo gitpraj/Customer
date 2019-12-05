@@ -39,7 +39,8 @@ namespace CustomerPortal.Models
         }
 
         /* addCustomer() - add a new customer. CustomerId integer to be greater than
-         * zero. If the request contains customerId as 0, set it to 1 + the max customerId from the db  */
+         * zero. If the request contains customerId as 0, set it to 1 + the max customerId from the db
+         * returns 1 if successful, -1 if not */
         public int addCustomer(Customer customer)
         {
             if (customer.CustomerID == 0)
@@ -74,7 +75,8 @@ namespace CustomerPortal.Models
             }
         }
 
-        /* editCustomer() - customer data updated */
+        /* editCustomer() - customer data updated
+         * returns 1 if successful, -1 if not */
         public int editCustomer(Customer customer)
         {
             if (customer != null)
@@ -95,7 +97,8 @@ namespace CustomerPortal.Models
             }
         }
 
-        /* deleteCustomer() - delete customers from the db */
+        /* deleteCustomer() - delete customers from the db
+         * returns 1 if successful, -1 if not */
         public int deleteCustomer(int id)
         {
             var customerCount = this.dbContext.Customers.Count();
