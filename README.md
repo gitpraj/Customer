@@ -5,10 +5,10 @@ This API was built for a coding challenge. Customer Portal API - Adding, Updatin
 ## Getting Started
 
 Run the app on visual studio or dotnet console.
-Go to folder Customer/bin/Debug/netcoreapp2.2 
+Go to folder Customer/ 
 and run 
 ```
-dotnet CustomerPortal.dll
+dotnet run .
 ```
 Check out Swagger UI for all the api's involved
 URL: http://localhost:5000/swagger
@@ -19,6 +19,7 @@ This APP uses In Memory Database.
 
 * Simple App to showcase my tech skills and my adaptability to any skill.
 * You can only add, update, delete and search for customers via the API.
+* AsNoTracking used for concurrency problems with In memory Store dbContext.
 * Basic validation when accessing data.
 * HTTP return codes are returned along with actual data in JSON format.
 * 2 Tier Architecture - Business/API Layer and Data Access Layer
@@ -48,6 +49,11 @@ This APP uses In Memory Database.
 I have created a few unit tests which are found in the folder CustomerControlTests. This could be run manually. Tests include the interface testing i.e. test the data layer. 
 
 These tests will talk with the In memory store.
+
+Go to Folder CustomerControlTests/ and run
+```
+dotnet test
+```
 
 
 ### Deisgn Architrecture
